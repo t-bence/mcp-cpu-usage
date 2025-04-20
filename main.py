@@ -1,6 +1,4 @@
-def main():
-    print("Hello from mcp-cpu-usage!")
-
+from cpu_usage import server
 
 if __name__ == "__main__":
-    main()
+    print(server.list_processes_cpu_usage())
