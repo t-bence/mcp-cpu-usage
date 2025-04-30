@@ -1,6 +1,6 @@
-from cpu_usage import server
+from cpu_usage.server import CPUUsageTool
 
 if __name__ == "__main__":
-    for proc in server.list_processes_cpu_usage():
-        if proc.percent:
-            print(f"{proc.name}:{proc.percent:>8}")
+    cpu_tool = CPUUsageTool(wait_time=0.5, top_n=3)
+
+    print(cpu_tool.list_usage())
