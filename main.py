@@ -1,6 +1,7 @@
-from cpu_usage.server import CPUUsageTool
+from dbx_connector.server import WorkspaceConnection
 
 if __name__ == "__main__":
-    cpu_tool = CPUUsageTool(wait_time=0.5, top_n=3)
-
-    print(cpu_tool.list_usage())
+    print(WorkspaceConnection().list_catalogs())
+    print(WorkspaceConnection().list_clusters())
+    print(WorkspaceConnection().list_jobs())
+    print(WorkspaceConnection().current_user())
