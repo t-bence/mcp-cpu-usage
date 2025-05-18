@@ -1,16 +1,8 @@
-import os
-
 from databricks.sdk import WorkspaceClient
 from dotenv import load_dotenv
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("SecretServer")
-
-
-@mcp.tool()
-def get_secret_number() -> int:
-    """Returns a predefined secret number."""
-    return 13
 
 
 class WorkspaceConnection:
@@ -25,20 +17,39 @@ class WorkspaceConnection:
         )
 
     def list_clusters(self) -> str:
-        return "\n".join(
+        cluster_details = [
             f"{cluster.cluster_name}: {cluster.state.value}"
             for cluster in self.client.clusters.list()
-        )
+        ]
+        if not cluster_details:
+            return "No clusters found."
+        return "\n".join(cluster_details)
 
     def list_jobs(self) -> str:
-        return "\n".join(
-            f"{job.settings.name}: {job}" for job in self.client.jobs.list()
-        )
+        job_details = [f"{job.settings.name}: {job}" for job in self.client.jobs.list()]
+        if not job_details:
+            return "No jobs found."
+        return "\n".join(job_details)
 
-    def current_user(self) -> str:
+    def current_username(self) -> str:
         return self.client.current_user.me().user_name
 
 
-@mcp.tool(description="Returns a list of catalogs the user can access")
+@mcp.tool(description="Returns the list of catalogs the user can access")
 def list_accessible_catalogs() -> str:
     return WorkspaceConnection().list_catalogs()
+
+
+@mcp.tool(description="Returns the list of clusters the user can access")
+def list_accessible_clusters() -> str:
+    return WorkspaceConnection().list_clusters()
+
+
+@mcp.tool(description="Returns the list of jobs the user can access")
+def list_accessible_jobs() -> str:
+    return WorkspaceConnection().list_jobs()
+
+
+@mcp.tool(description="Return the user's username in the workspace")
+def get_username() -> str:
+    return WorkspaceConnection().current_username()
