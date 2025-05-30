@@ -1,5 +1,6 @@
 from databricks.sdk import WorkspaceClient
 from dotenv import load_dotenv
+
 from mcp.server.fastmcp import FastMCP
 
 mcp = FastMCP("SecretServer")
