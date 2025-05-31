@@ -31,3 +31,5 @@ Modify `claude_desktop_config.json` to contain the following:
 ```
 
 You will have to adjust the path to the project and to uv.
+
+Then, create a file called `.env` based on `.env.sample` in the repo, and add the workspace url and a token for the workspace you want to use the tool with.
