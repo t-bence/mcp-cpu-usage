@@ -1,7 +1,10 @@
-from dbx_connector.server import WorkspaceConnection
+from dbx_connector.server import (
+    get_username,
+    list_accessible_clusters,
+    list_accessible_jobs,
+)
 
 if __name__ == "__main__":
-    print(WorkspaceConnection().list_catalogs())
-    print(WorkspaceConnection().list_clusters())
-    print(WorkspaceConnection().list_jobs())
-    print(WorkspaceConnection().current_username())
+    print(list_accessible_clusters())
+    print(list_accessible_jobs())
+    print(get_username())
